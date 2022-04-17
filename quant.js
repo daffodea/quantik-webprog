@@ -272,6 +272,7 @@ if (gameon == true) {
     selectedform.style.backgroundColor = "#cecece";
     selectedform.classList.add("selected");
     selectionexists = true;
+    
   }
 
   //játéktér-lerakás
@@ -577,6 +578,7 @@ function selectgame(td) {
       qu4 == 4
     ) {
       console.log("gyozelem");
+
       if (player1turn == true) {
         winnername.innerHTML = player1name;
         wehaveawinner.style.backgroundColor = "rgb(211, 178, 221)";

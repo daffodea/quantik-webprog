@@ -121,7 +121,7 @@ td {
 }
 
 .fejlec{
-    background-image: url("imgs/banner1");
+    background-image: url("imgs/banner1.png");
 }
 
 .purple{
@@ -191,7 +191,7 @@ td {
 
 }
 #gamescreen{
-    position: fixed;
+    position: absolute;
     left: 50%;
     padding-bottom: 15px;
     

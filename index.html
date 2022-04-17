@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen">
+<link rel="shortcut icon" type="image/x-icon" href="imgs/pcircle_AO0_icon.ico">
+    <title>QUANTIK - Játék két személyre</title>
+</head>
+<body>
+    <div class="fejlec"><img id="banner" src="imgs/banner1.png" alt="QUANTIK"></div>
+
+    <div id="startscreen" class="startscreen">
+        <section id="names" class= "names">
+        <p><label for "player1">Első játékos neve: </label><input type="text" placeholder="1. játékos" id="player1" name="player1" value = ""></p>
+        <p><label for "player2">Második játékos neve: </label><input type="text" placeholder="2. játékos" id="player2" name="player2" value=""></p>
+        <p><button type="button" id="namebutton">Nevek beállítása</button></p>
+        <div id="displayplayer1name" class="vs1"></div>
+        <p>vs.</p>
+        <div id="displayplayer2name" class="vs2"></div>
+    </section>
+    <section id="startbutt" class="startbutt">
+        <button type="button" id="startbutton">Játék indítása</button>
+    </section>
+    <section id="instr">
+        <button type="button" id="inst">Instrukciók</button>
+    </section>
+    <section id="stats">
+        <button type="button" id="stat">Statisztikák</button>
+    </section>
+
+    <div id="gamerules">
+        <h1>A játék szabályai</h1>
+        <p>A játék egy 4x4-es táblán játszódik, ami 4 egyenlő, 2x2-es részre van bontva. 
+            <br>A játékhoz négy, egymástól könnyen megkülönböztethető, alakzatot használhatunk, jelen esetben négyzetet, kört, háromszöget és X-et.</br> 
+            <br>Mind a két játékosnak minden alakzatból 2-2 bábuja van, így összesen 8 alakzat található meg egy színből. </br>
+            <br>A játék célja az, hogy elsőként helyezzék le a játékosok a negyedik, többitől különböző formát egy sorba, oszlopba, vagy négyzet alakú területre (színtől függetlenül). </br>
+            <br>Ha egy cellára lehelyeztünk egy alakzatot, akkor annak sorába, oszlopába, vagy négyzet alakú területére nem tudja már egyik játékos sem még egyszer ugyanazt az alakzatot letenni.</br></p>
+        <button type="button" id="closerules">Vissza</button>
+    </div>
+        
+    </div>
+    <div id="gamescreen" class="game">
+
+        <div id="roundplayer1"><table class="roundplayer1"><tr><td><div id="roundsign1" class="roundofplayer1"></div> köre </td></tr></table>
+        </div>
+        <div id="roundplayer2"><table class="roundplayer2"><tr><td><div id="roundsign2" class="roundofplayer2"></div> köre </td></tr></table>
+    </div><img id="ao" src="imgs/aO.png" /><img id="ap" src="imgs/aP.png" />
+    
+    <div id="game">
+            <table id="formselection">
+                <tr>
+                <td id="tria" class="purple triangle"><img class="triangle" src="imgs/WTriangle.png">
+                    <div id="PTc"></div>|<div id="OTc"></div>
+                </td>
+                <td id="circ" class="purple circle"><img class="circle" src="imgs/WCircle.png">
+                    <div id="PCic"></div>|<div id="OCic"></div></td>
+                <td id="squa" class="purple square" ><img class="square" src="imgs/WSquare.png">
+                    <div id="PSc"></div>|<div id="OSc"></div></td>
+                <td id="cros" class="purple cross"><img class="cross" src="imgs/WCross.png">
+                    <div id="PCrc"></div>|<div id="OCrc"></div></td>
+                </tr>
+                </table>
+    </div>
+    <div>
+        <table id="gameboard">
+            <tr>
+            <td class="ar A1"></td>
+            <td class="ar A2"></td>
+            <td class="ar A3"></td>
+            <td class="ar A4"></td>
+            </tr>
+            <tr>
+                <td class="ar B1"></td>
+                <td class="ar B2"></td>
+                <td class="ar B3"></td>
+                <td class="ar B4"></td>
+                </tr>
+                <tr>
+                    <td class="ar C1"></td>
+                    <td class="ar C2"></td>
+                    <td class="ar C3"></td>
+                    <td class="ar C4"></td>
+                    </tr>
+                    <tr>
+                        <td class="ar D1"></td>
+                        <td class="ar D2"></td>
+                        <td class="ar D3"></td>
+                        <td class="ar D4"></td>
+                        </tr>
+            </table>
+    </div>
+</div>
+<div id="wehaveawinner">
+    <div id="winningtext">
+        <p>Gratulálok!</p>
+        <p>A győztes <div id="winnername">!</div></p>
+        <p><button type="button" id="reset">Vissza a kezdőlapra</button></p>
+    <p><div id="winningimage"></div></p></div>
+</div>
+    
+</body>
+<script src="quant.js"></script>
+</html>

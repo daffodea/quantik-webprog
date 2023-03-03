@@ -1,4 +1,4 @@
-//values
+//basic values
 
 const gamescreen = document.querySelector("#gamescreen");
 const startscreen = document.querySelector("#startscreen");
@@ -22,6 +22,8 @@ const wehaveawinner = document.getElementById("wehaveawinner");
 const winningtext = document.getElementById("winningtext");
 let winnername = document.getElementById("winnername");
 let winningimage = document.getElementById("winningimage");
+
+//banner animation
 const bannerArray = [
   "imgs/banner1.png",
   "imgs/overlay1.png",
@@ -34,6 +36,16 @@ const bannerArray = [
   "imgs/overlay 8.png",
 ];
 const banner = document.querySelector("#banner");
+function displayBanner() {}
+function rotation() {
+  setInterval(() => {
+    let num = Math.floor(Math.random() * 9);
+    banner.src = bannerArray[num];
+  }, 900);
+}
+window.onload = rotation();
+
+//gameboard slots
 const A1 = document.querySelector(".A1");
 const A2 = document.querySelector(".A2");
 const A3 = document.querySelector(".A3");
@@ -55,6 +67,7 @@ const circ = document.querySelector("#circ");
 const cros = document.querySelector("#cros");
 const squa = document.querySelector("#squa");
 const choice = [tria, circ, cros, squa];
+//winning areas
 const winningcombo = ["triangle", "square", "circle", "cross"];
 const row1 = [A1, A2, A3, A4];
 const row2 = [B1, B2, B3, B4];
@@ -68,6 +81,8 @@ const q1 = [A3, A4, B3, B4];
 const q2 = [C3, C4, D3, D4];
 const q3 = [C1, C2, D1, D2];
 const q4 = [A1, A2, B1, B2];
+
+//how many valid checks are in the winning areas
 let r1 = 0;
 let r2 = 0;
 let r3 = 0;
@@ -80,6 +95,9 @@ let qu1 = 0;
 let qu2 = 0;
 let qu3 = 0;
 let qu4 = 0;
+
+//OTc, PTc, PCic, etc... = Orange/Purple initial + Shape initial (T-triangle, Ci-circle, Cr-cross, S-square) + c for count
+
 let OTc = 2;
 let PTc = 2;
 let OCic = 2;
@@ -88,11 +106,10 @@ let OCrc = 2;
 let PCrc = 2;
 let OSc = 2;
 let PSc = 2;
-let sel; //a kiválssztott bábu értéke
+let sel; //the selected shape
 let selectedform;
 let gameboardselected;
 let token;
-let gameresumed;
 let PCrosscount = document.querySelector("#PCrc");
 let OCrosscount = document.querySelector("#OCrc");
 let PSquacount = document.querySelector("#PSc");
@@ -102,33 +119,16 @@ let OTricount = document.querySelector("#OTc");
 let PCircount = document.querySelector("#PCic");
 let OCircount = document.querySelector("#OCic");
 
-const formt = document.querySelector(".formt");
 let formselection = document.querySelector("#formselection");
 let gameboard = document.querySelector("#gameboard");
-const triangle = document.querySelector("#triangle");
-let square = document.querySelectorAll("#square");
-let circle = document.querySelectorAll("#circle");
-let cross = document.querySelectorAll("#cross");
-//booleans
+
+
+//gameplay booleans
 let gameon = true;
-let firstround = true;
 let player1turn = true;
 let player2turn = false;
-let placed = false;
-let triangleselected = false;
-let squareselected = false;
-let circleselected = false;
-let crossselected = false;
 
-//fejléc
-function displayBanner() {}
-function rotation() {
-  setInterval(() => {
-    let num = Math.floor(Math.random() * 9);
-    banner.src = bannerArray[num];
-  }, 900);
-}
-window.onload = rotation();
+
 
 //reset
 reset.addEventListener("click", () => {
@@ -144,6 +144,7 @@ reset.addEventListener("click", () => {
     wehaveawinner.style.visibility = "hidden";
     startscreen.style.visibility = "visible";
     for (let i = 0; i < 4; i++) {
+      //PUnav, OUnav classes -> Purple/Orange unavailable
       choice[i].classList.remove("PUnav");
       choice[i].classList.remove("OUnav");
       choice[i].style.backgroundColor = "rgb(146, 107, 158)";
@@ -169,7 +170,7 @@ OCrosscount.innerHTML = OCrc;
   }
 });
 
-//név beolvasás
+//name setting
 namebutton.addEventListener("click", () => {
   if (player1.value != "") {
     player1name = player1.value;
@@ -187,28 +188,30 @@ namebutton.addEventListener("click", () => {
   roundsign2.innerHTML = player2name;
 });
 
-//nevek displayeleése - névválasztás, körjelzés, győztes
+//player names and round signs
 displayp1.innerHTML = player1name;
 displayp2.innerHTML = player2name;
 roundsign1.innerHTML = player1name;
 roundsign2.innerHTML = player2name;
 
-//a kezdő visibility értékek
+//initial visibility of page components
 
 gamescreen.style.visibility = "hidden";
 gamerules.style.visibility = "hidden";
 roundplayer2.style.visibility = "hidden";
 wehaveawinner.style.visibility = "hidden";
 
-//játékszabály megjelenítés
+//game rules visibility
 instr.addEventListener("click", () => {
   gamerules.style.visibility = "visible";
+  startscreen.style.visibility = "hidden";
 });
 closerules.addEventListener("click", () => {
   gamerules.style.visibility = "hidden";
+  startscreen.style.visibility = "visible";
 });
 
-//START GOMB
+//START BUTTON
 
 start.addEventListener("click", () => {
   startscreen.style.visibility = "hidden";
@@ -226,7 +229,11 @@ PSquacount.innerHTML = PSc;
 OSquacount.innerHTML = OSc;
 PCrosscount.innerHTML = PCrc;
 OCrosscount.innerHTML = OCrc;
+
+
 //GAMEON
+
+
 gamescreen.style.backgroundColor = "rgb(211, 178, 221)";
 for (let i = 0; i < 4; i++) {
   if (choice[i].classList.contains("PUnav")) {
@@ -237,8 +244,11 @@ for (let i = 0; i < 4; i++) {
     choice[i].style.opacity = "100%";
   }
 }
+
 if (gameon == true) {
-  //játéktér- bábuválasztás
+
+  //gameboard - choosing a shape
+
   formselection.addEventListener("click", (event) => {
     let td = event.target.closest("td");
 
@@ -257,6 +267,7 @@ if (gameon == true) {
     if (!formselection.contains(td)) return;
     selectform(td);
   });
+
   function selectform(td) {
     if (selectedform) {
       if (player1turn == true && !selectedform.classList.contains("PUnav")) {
@@ -271,11 +282,10 @@ if (gameon == true) {
     selectedform = td;
     selectedform.style.backgroundColor = "#cecece";
     selectedform.classList.add("selected");
-    selectionexists = true;
-    
   }
 
-  //játéktér-lerakás
+  //gameboard - placing of shape
+  
   gameboard.addEventListener("click", (event) => {
     let td = event.target.closest("td");
     sel = document.querySelector(".selected");
@@ -295,6 +305,8 @@ if (gameon == true) {
     selectgame(td);
   });
 }
+
+
 //bábu lerakása - 1kör
 
 function selectgame(td) {
@@ -383,6 +395,8 @@ function selectgame(td) {
       token = "square";
       gameboardselected.classList.add("filled", "square");
     }
+
+
     PTricount.innerHTML = PTc;
     OTricount.innerHTML = OTc;
     PCircount.innerHTML = PCic;
